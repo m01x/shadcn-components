@@ -17,7 +17,7 @@ const mockData = [
   },
   {id:"item-4",
     question:"Where are them?",
-    answer:"answer none."
+    answer:"answer none.."
   }
 ];
 
