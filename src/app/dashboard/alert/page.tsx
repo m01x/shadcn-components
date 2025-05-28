@@ -1,8 +1,7 @@
-
 export default function Page() {
   return (
     <div>
-      <h1>Hello Page alert</h1>
+      <h1>Alert Page</h1>
     </div>
   );
 }
