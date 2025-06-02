@@ -2,7 +2,7 @@
 
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Terminal } from "lucide-react";
+import { ChevronRightIcon, Loader2Icon, Terminal } from "lucide-react";
 
 export default function Page() {
 
@@ -19,6 +19,14 @@ export default function Page() {
       <Button variant="secondary">secondary</Button>
       <Button disabled>disabled</Button>
       <Button onClick={onClickBtn}>Click me</Button>
+      <Button variant={"success"}>Click me</Button>
+      <Button variant={"secondary"} size={"icon"} className="size-8">
+        <ChevronRightIcon />
+      </Button>
+      <Button size="sm" disabled>
+        <Loader2Icon className="animate-spin" />
+        Please wait
+      </Button>
     </div>
   );
 }
