@@ -10,8 +10,8 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: "m01x-Shadcn Library",
-  description: "Libreria comprensiva de shadcn",
+  title: "m01x-Shadcn/Radix Library",
+  description: "Libreria comprensiva de shadcn/Radix Ui",
 };
 
 export default function RootLayout({
