@@ -59,7 +59,17 @@ const SortedIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
 export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "status",
-        header: "Status",
+        header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Status
+            <SortedIcon isSorted={column.getIsSorted()} />
+          </Button>
+        )
+    },
         cell: ({ row }) => {
             const status = row.getValue('status') as StatusKey
             
