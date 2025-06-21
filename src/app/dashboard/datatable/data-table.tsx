@@ -3,8 +3,10 @@ import { useState } from "react";
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
   SortingState,
@@ -19,7 +21,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -32,7 +47,9 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 
 
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [currentStatus, setCurrentStatus] = useState('all');
 
   const table = useReactTable({
     data,
@@ -41,13 +58,44 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
   })
 
   return (
-    <div className="rounded-md border">
+    <div>
+      <div className="flex items-center justify-between py-4">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+
+        <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Status" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Status</SelectLabel>
+          <SelectItem value="all">All</SelectItem>
+          <SelectItem value="pending">Pending</SelectItem>
+          <SelectItem value="processing">Processing</SelectItem>
+          <SelectItem value="failed">Failed</SelectItem>
+          <SelectItem value="success">Success</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+      </div>
+
+      <div className="rounded-md border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -109,5 +157,7 @@ export function DataTable<TData, TValue>({
         </Button>
       </div>
     </div>
+    </div>
+    
   )
 }
