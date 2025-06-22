@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Payment } from "@/data/payments.data"
-import { ColumnDef, SortDirection } from "@tanstack/react-table"
+import { ColumnDef, SortDirection, Row, FilterFn } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -41,6 +41,24 @@ const dataStatus: Record<StatusKey, StatusColor> = {
     failed: "destructive"
 };
 
+
+const myCustomFilterFn: FilterFn<Payment> = (row: Row<Payment>, columnId: string, filterValue: string, addMeta: (meta: any) => void) => {
+    
+    filterValue = filterValue.toLowerCase();
+    if ( row.original.email.includes(filterValue) ) {
+        return true;
+    }
+
+    if ( row.original.clientName.includes(filterValue) ) {
+        return true;
+    }
+
+    if ( row.original.status.includes(filterValue) ) {
+        return true;
+    }
+
+    return false;
+}
 
 const SortedIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
 
@@ -101,6 +119,7 @@ export const columns: ColumnDef<Payment>[] = [
     },
     {
         accessorKey: "email",
+        filterFn: myCustomFilterFn,
         header: ({ column }) => {
             return (
                 <Button

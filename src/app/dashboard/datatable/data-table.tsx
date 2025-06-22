@@ -88,7 +88,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Filter emails..."
+          placeholder="Filtro por Email, ClientName y Status..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>{
 
@@ -241,6 +241,25 @@ export function DataTable<TData, TValue>({
             Next
           </Button>
         </div>
+
+        <Select
+          onValueChange={ (value)=>{
+            table.setPageSize(+value);
+          } }>
+          <SelectTrigger className="w-[180px] m-2">
+            <SelectValue placeholder='10 rows' />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel> Rows por pagina </SelectLabel>
+              <SelectItem value='10'>10</SelectItem>
+              <SelectItem value='20'>20</SelectItem>
+              <SelectItem value='30'>30</SelectItem>
+              <SelectItem value='50'>50</SelectItem>
+              <SelectItem value='100'>100</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
     </div>
 
