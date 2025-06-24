@@ -20,6 +20,8 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { DialogTitle, DialogDescription } from "@/components/ui/dialog"; // Ajusta el import según tu estructura
 
 
 export default function Page() {
@@ -40,6 +42,12 @@ export default function Page() {
   return (
     <div>
       <CommandDialog open={open} onOpenChange={setOpen}>
+        <VisuallyHidden>
+          <DialogTitle>Command Menu</DialogTitle>
+          <DialogDescription>
+            Use this dialog to search or execute commands.
+          </DialogDescription>
+        </VisuallyHidden>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList className="h-[100px]">
           <CommandEmpty>No results found.</CommandEmpty>
